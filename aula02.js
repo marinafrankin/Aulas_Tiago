@@ -12,7 +12,7 @@
  
 // 5) Criar coleção: 
     db.createCollection("minha_coleção")
-// 
+ 
 // 6) Inserir documento:
       db.minha_colecao.insertOne({ nome: "João", idade: 30})
 // o "db" é uma variavel, a qual contem o "primeiro_db";
