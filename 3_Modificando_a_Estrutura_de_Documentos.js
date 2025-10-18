@@ -19,7 +19,8 @@
         novo documento fornecido.
 
     
-    OPERADORES DE ATUALIZAÇÃO:
+    OPERADORES DE ATUALIZAÇÃO ->
+
     • 1°) Modificação de campos:
         –> $set – Define ou altera um campo específico.
         –> $unset – Remove um campo.
@@ -77,67 +78,154 @@ db.user.insertMany([
  ]);
 
 
+//
+
+// EXEMPLOS - ATUALIZAÇÃO DE DOCUMENTOS:
+
+/*
+    Atualiza apenas um documento que corresponde 
+    ao filtro:
+
 db.user.updateOne(
     {username: "João"},
     {$set: {age: 25}}
- );
+);
+*/
+
+/* 
+    Atualiza todos os documentos que correspondam 
+    ao filtro:
+
+db.user.updateMany(
+    { active: true},
+    { $set: { premium: true} } 
+);
+*/
 
 
- db.user.replaceOne(
+/*
+    Substitui um documento inteiro por um novo:
+
+db.user.replaceOne(
       {username: "Maria"},
       {_id: 2, username: "Maria", age: 31, active: true, premium: false, hobbies: [] }
  );
+*/
 
+
+//
+
+// EXEMPLOS - MODIFICAÇÃO DE CAMPOS:
+
+/*
+ $set -> Define ou altera um campo específico:
+
+db.user.updateOne(
+    { username: "joao" },
+    { $set: { premium: true } }
+);
+*/
+
+/*
+ $unset -> Remove um campo:
 
 db.user.updateOne(
     {username: "Carlos"},
     {$unset: {premium: ""}}
- );
+);
+*/
 
+/*
+ $rename -> Renomeia um campo:
 
 db.user.updateOne(
     {username: "Maria"},
     {$rename: {"age": "yearsOld"}}
 );
+*/
 
+
+//
+
+// EXEMPLOS - OPERAÇÕES MATEMÁTICAS:
+/*
+ $inc -> Incrementa um valor:
 
 db.user.updateOne(
-    {isername: "João"},
+    {username: "João"},
     {$inc: {age: 1}}
  );
+*/
 
+/*
+ $mul -> Multiplica um valor:
 
 db.user.updateOne(
-    {isername: "Carlos"},
+    {username: "carlos"},
     {$mul: {age: 2}}
  );
+*/
 
-
+/*
 db.user.updateOne(
-    {isername: "Maria"},
+    {username: "joao"},
+    {$min: {age: 23}}
+ );
+*/
+
+/*
+db.user.updateOne(
+    {username: "Maria"},
     {$max: {yearOld: 35}}
  );
+*/
 
+
+//
+
+// EXEMPLOS - OPERAÇÕES EM ARRAYS:
+
+/*
+ $push -> Adiciona um elemento ao array:
 
 db.user.updateOne(
-   {isername: "João"},
+   {username: "joao"},
    {$push: {hobbies: "guitar"}}
  );
+*/
 
+/*
+ $pop -> Remove o primeiro ou último elemento:
 
 db.user.updateOne(
-    {isername: "Maria"},
+    {username: "Maria"},
     {$pop: {hobbies: -1 }}
  );
+*/
 
+/*
+ $pull -> Remove elementos específicos:
+
+db.user.updateOne(
+    {username: "carlos"},
+    {$pull: {hobbies: "gaming" }}
+ );
+*/
+
+/*
+ $addToSet -> Adiciona um item se ele não existir:
 
 db.user.updateOne(
     {isername: "João"},
     {$addToSet: {hobbies: "chess" }}
  );
+*/
 
+/*
+ $each -> Adiciona múltiplos elementos:
 
 db.user.updateOne(
     {isername: "João"},
     {$push: {hobbies: {$each: ["coding", "music"] } } }
  );
+*/
